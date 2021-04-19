@@ -1,17 +1,27 @@
-import { Category } from "../model/Category";
+import { Category } from "../../model/Category";
 import {
   ICategoriesRepository,
   ICreateCategoryDTO,
-} from "./ICategoriesRepository";
+} from "../ICategoriesRepository";
 
 // DTO => Data transfer object
 
 class CategoriesRepository implements ICategoriesRepository {
   private categories: Category[]; // Só quem terá acesso a esse categories é o nosso repositório, por isso ele é private
 
-  constructor() {
+  private static INSTANCE: CategoriesRepository;
+  private constructor() {
     // iniciando nosso category
     this.categories = [];
+  }
+
+  // Método responsável por instanciar nosso repositório
+  public static getInstance(): CategoriesRepository {
+    if (!CategoriesRepository.INSTANCE) {
+      CategoriesRepository.INSTANCE = new CategoriesRepository();
+    }
+
+    return CategoriesRepository.INSTANCE;
   }
 
   create({ description, name }: ICreateCategoryDTO): void {
