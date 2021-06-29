@@ -1,4 +1,4 @@
-## Começando o RENATALX
+## Começando o RENTALX
 
     - Primeiro configuramos o eslint e o prettier conforme o link: https://www.notion.so/ESLint-e-Prettier-Trilha-Node-js-d3f3ef576e7f45dfbbde5c25fa662779#eaf6e8bdcabc4d809cdae302e29750da
 
@@ -58,3 +58,56 @@ para fazer o debbuger se conectar com a nossa aplicação colocamos no nosso scr
         - Fazer o cadastro
         - Fazer os selects
         - Toda a manipulação com o banco
+
+=====================================================================================
+Docker
+
+## Criando nosso DockerFile
+FROM node // de qual imagem vamos estar pegando
+
+WORKDIR  /usr/app //onde queremos que fica nossas informações
+
+COPY package.json ./ //iremos copiar o nosso package.json para o diretório setado no workdir
+
+RUN npm install //para baixar as dependência no container
+
+COPY . . //irá copiar tudo pra dentro da nossa pasta raiz, a workdir
+
+EXPOSE 3333 //porta que estamos utilizando dentro do container
+
+CMD ["npm", "run". "dev"] //irá rodar nosso comando
+
+comando buildar nosso container: docker build -t rentx .
+
+para rodar nosso container: docker run -p 3333:3333 rentx 
+                                          local/docker/nome da image
+
+
+//docker compose: orquestrar containers                       
+
+com docker compose basta rodar o comando docker-compose up
+
+//comandos docker:
+docker ps: mostra todos os nossos containers de pé
+
+docker ps -a: mostra todos, ativos e inativos
+
+docker rm <id-container>: remove o container desejado
+
+docker start <id-container>: inicia nosso container
+
+docker stop <id-container>: para nosso container
+
+docker exec -it rentx bin/bash: para acessar o container
+
+docker logs rentx -f: mostra os logs em tempo real
+
+//comandos docker-compose:
+
+docker-compose up -d: Roda container em background
+
+docker-compose stop:Para o container 
+
+docker-compose down: remove tudo de dentro do compose
+
+docker-compose start: inicia
