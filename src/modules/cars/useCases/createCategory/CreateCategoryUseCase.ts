@@ -2,7 +2,7 @@ import { ICategoriesRepository } from "../../repositories/ICategoriesRepository"
 
 interface IRequest {
   name: string;
-  description;
+  description: string;
 }
 /**
  * [X] - Definir o tipo de retorno

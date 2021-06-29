@@ -16,7 +16,7 @@
 --inspect: Para nossa aplicação se conectar com o Debuggie do Vscode
 =====================================================================================
 
-devemos desabilitar o "strict:true" no tsconfig
+devemos desabilitar o "strict:true" no tsconfig, ele é  uma opção do javascript que checa os erros da aplicação, porém não precisamos dele, pois o typescript já aponta os erros também
 
 =====================================================================================
 ## Aprendendo a debugar a aplicação
