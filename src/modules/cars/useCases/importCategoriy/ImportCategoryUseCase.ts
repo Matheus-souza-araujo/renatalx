@@ -13,7 +13,7 @@ class ImportCategoryUseCase {
   loadCategories(file: Express.Multer.File): Promise<IImportCategory[]> {
     return new Promise((resolve, reject) => {
       // Faz a leitura pegando pelo caminho do arquivo, criando uma stream que lê por partes, ajudando na performance
-      const stream = fs.createReadStream(file.path);
+      const stream = fs.createReadStream(file.path); // permiti lermos nosso arquivo em partes
       const categories: IImportCategory[] = [];
 
       const parseFile = csvParse();
@@ -32,7 +32,7 @@ class ImportCategoryUseCase {
         })
         .on("end", () => {
           fs.promises.unlink(file.path); // para remover o arquivo
-          resolve(categories);
+          resolve(categories); // nossa promisse que espera terminar para carregar os categories
         })
         .on("error", (err) => {
           reject(err);
