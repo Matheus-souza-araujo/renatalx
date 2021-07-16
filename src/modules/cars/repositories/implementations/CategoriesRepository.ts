@@ -1,4 +1,6 @@
-import { Category } from "../../model/Category";
+import { getRepository, Repository } from "typeorm";
+
+import { Category } from "../../entities/Category";
 import {
   ICategoriesRepository,
   ICreateCategoryDTO,
@@ -7,45 +9,27 @@ import {
 // DTO => Data transfer object
 
 class CategoriesRepository implements ICategoriesRepository {
-  private categories: Category[]; // Só quem terá acesso a esse categories é o nosso repositório, por isso ele é private
-
-  private static INSTANCE: CategoriesRepository;
-  private constructor() {
+  private repository: Repository<Category>;
+  constructor() {
     // iniciando nosso category
-    this.categories = [];
+    this.repository = getRepository(Category);
   }
 
-  // Método responsável por instanciar nosso repositório
-  public static getInstance(): CategoriesRepository {
-    if (!CategoriesRepository.INSTANCE) {
-      CategoriesRepository.INSTANCE = new CategoriesRepository();
-    }
-
-    return CategoriesRepository.INSTANCE;
-  }
-
-  create({ description, name }: ICreateCategoryDTO): void {
-    // definindo que nossa função é um void, significa que não terá retorno nenhum
-    const category = new Category(); // dessa forma conseguimos chamar nosso construtor
-
-    // Object.assign(destino, ...origens)
-    // O destino: objeto destino.
-    // origens: Um ou mais objetos de origem.
-    Object.assign(category, {
-      name,
+  async create({ description, name }: ICreateCategoryDTO): Promise<void> {
+    const category = this.repository.create({
       description,
-      created_at: new Date(),
+      name,
     });
-
-    this.categories.push(category);
+    await this.repository.save(category);
   }
 
-  list(): Category[] {
-    return this.categories;
+  async list(): Promise<Category[]> {
+    const categories = await this.repository.find();
+    return categories;
   }
 
-  findByName(name: string): Category {
-    const category = this.categories.find((Category) => Category.name === name);
+  async findByName(name: string): Promise<Category> {
+    const category = await this.repository.findOne({ name });
     return category;
   }
 }
