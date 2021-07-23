@@ -1,10 +1,13 @@
 import express from "express"; // import em vez de require
 import swaggerUi from "swagger-ui-express";
+import "reflect-metadata";
 
 import { router } from "./routes";
 import swaggerFile from "./swagger.json";
 
 import "./database"; // para nosso arquivo de banco de dados
+
+import "./shared/container";
 
 const app = express();
 
