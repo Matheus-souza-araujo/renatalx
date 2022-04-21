@@ -1,15 +1,16 @@
+/* eslint-disable import-helpers/order-imports */
 import express, { NextFunction, Request, Response } from "express"; // import em vez de require
 import "express-async-errors";
 import swaggerUi from "swagger-ui-express";
 import "reflect-metadata";
 
+import { AppError } from "@errors/AppError";
 import { router } from "./routes";
 import swaggerFile from "./swagger.json";
 
 import "./database"; // para nosso arquivo de banco de dados
 
-import "./shared/container";
-import { AppError } from "./errors/AppError";
+import "@shared/container";
 
 const app = express();
 
