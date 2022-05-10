@@ -22,6 +22,7 @@ services:
       - 9229:9229 #Você pode inserir essa porta tbm pra poder usar o debug
     volumes: 
       - .:/usr/app  # same as WORKDIR in your Dockerfile
+      - /usr/app/node_modules/bcrypt/
     links: 
       - database
     depends_on:
