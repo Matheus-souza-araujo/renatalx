@@ -4,11 +4,11 @@ import "express-async-errors";
 import swaggerUi from "swagger-ui-express";
 import "reflect-metadata";
 
-import { AppError } from "@errors/AppError";
+import { AppError } from "@shared/errors/AppError";
 import { router } from "./routes";
-import swaggerFile from "./swagger.json";
+import swaggerFile from "../../../swagger.json";
 
-import "./database"; // para nosso arquivo de banco de dados
+import "../typeorm"; // para nosso arquivo de banco de dados
 
 import "@shared/container";
 
